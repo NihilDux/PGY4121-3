@@ -64,7 +64,6 @@ export class HomealumnoPage {
         const ctx = canvas.getContext('2d');
   
         if (!ctx) {
-          // Manejar el caso en el que getContext('2d') devuelve null
           reject(new Error('No se pudo obtener el contexto 2D del canvas.'));
           return;
         }
@@ -82,11 +81,10 @@ export class HomealumnoPage {
   
 
   sendEmail() {
-    const emailSubject = 'Asunto del correo';
+    const emailSubject = 'Registro de Clase';
     const emailBody = `Contenido del correo: ${this.qrData}`;
     const mailtoLink = `mailto:?subject=${encodeURIComponent(emailSubject)}&body=${encodeURIComponent(emailBody)}`;
 
-    // Abrir el cliente de correo del dispositivo
     window.location.href = mailtoLink;
   }
 }

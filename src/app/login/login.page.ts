@@ -38,31 +38,14 @@ export class LoginPage {
         this.router.navigate(['/homealumno']);
       }
     });
-  }
-  
+  }  
 
   async login() {
     try {
       const validationMessage = this.validateModel(this.logindata);
       const isAuthenticated = await this.userService.login(this.logindata.username, this.logindata.password);
-  
-      // Mostrar toasts para mensajes de validación y autenticación
-      if (validationMessage === 'success'){
-        this.presentToast(`Validation Message: ${validationMessage}`);
-
-      }else {
-        this.presentToast(`Validation Message: Se Chingó}`);
-      }
-      await new Promise(resolve => setTimeout(resolve, 5000))
-      if (isAuthenticated){
-        this.presentToast(`Is Authenticated: SI`);
-      }else{
-        this.presentToast(`Is Authenticated: CACA User: ${this.logindata.username}  PASS:${this.logindata.password}`)
-      }
-      await new Promise(resolve => setTimeout(resolve, 5000));
       
       if (validationMessage === 'success' && isAuthenticated) {
-        // Agregar un pequeño retraso antes de continuar con la lógica final
 
   
         const userProfile = await this.userService.getUserProfile();
@@ -81,23 +64,16 @@ export class LoginPage {
             this.router.navigate(['/homealumno']);
           }
         } else {
-          // No se pudo obtener el perfil del usuario
           console.error('No se pudo obtener el perfil del usuario');
         }
       } else {
-        // Mostrar mensaje de error si las credenciales son incorrectas.
         this.presentToast('Credenciales incorrectas');
       }
     } catch (error) {
-      // Manejar errores de autenticación
       console.error('Error en la autenticación:', error);
-  
-      // Mostrar mensaje de error en caso de excepción
       this.presentToast('Error en la autenticación');
     }
-  }
-  
-  
+  } 
 
 restore(){
   this.router.navigate(['/restore']);
