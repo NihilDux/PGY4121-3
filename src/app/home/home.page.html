@@ -1,6 +1,6 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title *ngIf="dataUser"> 
+    <ion-title *ngIf="dataUser" class="ion-text-center"> 
       <h1>Home Profesor</h1>
       <h3 #titulo (click)="animatedTitle()">Bienvenido: {{ dataUser.nombre }}</h3>
     </ion-title>
@@ -9,22 +9,25 @@
 
 <ion-content>
     <ion-card>
-      <ion-card-content>
-        <ion-list>
+      <ion-card-content >
+        <ion-list >
           <ion-item *ngIf="user" >
-            <p>Usuario: {{ user.username }}</p>
+            <div *ngIf="dataUser" >
+              <h2 >Usuario en Sesión</h2>
+              <p>Nombre: {{ dataUser.nombre }}</p>
+            </div>
           </ion-item>
-        </ion-list>
-        <div *ngIf="dataUser">
-          <h2>Detalles del Usuario en Sesión</h2>
-          <p>Nombre: {{ dataUser.nombre }}</p>
-        </div>
+        
+
+      </ion-list>
       </ion-card-content>
     <br>
-    <ion-button expand="full" (click)="logout()">Salir</ion-button>
+    
     
     <ion-card-content>
       <ion-list>
+        <ion-button expand="full" (click)="logout()">Salir</ion-button>
+        <br>
         <ion-button expand="full" (click)="listarCurso()">Listar cursos</ion-button>
         <ion-item *ngFor="let curso of cursos">
           <ion-label>

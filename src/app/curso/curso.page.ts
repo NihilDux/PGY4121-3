@@ -4,6 +4,7 @@ import { alumnos } from 'src/models/alumnos';
 import { LocalApiService } from 'src/services/localapi.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import * as QRCode from 'qrcode-generator';
+import { UserService } from 'src/services/user.service';
 
 @Component({
   selector: 'app-curso',
@@ -21,7 +22,8 @@ export class CursoPage implements OnInit {
   constructor(
     private localApiService: LocalApiService,
     private router: Router,
-    private activeroute: ActivatedRoute
+    private activeroute: ActivatedRoute,
+    private userService : UserService
   ) {
     this.activeroute.queryParams.subscribe((params) => {
       if (this.router.getCurrentNavigation()?.extras.state) {
@@ -38,6 +40,13 @@ export class CursoPage implements OnInit {
     qr.addData(text);
     qr.make();
     return qr.createDataURL(10, 0);
+  }
+
+  async logout(){
+    this.userService.logout();
+  }
+  async home(){
+    this.router.navigate(['/home']);
   }
   
   QR() {
