@@ -5,19 +5,15 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">curso</ion-title>
-    </ion-toolbar>
-  </ion-header>
-  <img [src]="qrDataURL" *ngIf="qrDataURL">
+  <!-- Contenido de la página -->
+  <img [src]="qrData" *ngIf="qrData">
 
   <ion-list>
-      <ion-list-header>
-          Alumnos del Curso: {{ curso?.nombre }}
-      </ion-list-header>
-      <ion-item *ngFor="let alumno of alumnos">
-          <ion-label>{{ alumno.nombre }}</ion-label>
-      </ion-item>
+    <ion-list-header>
+      Alumnos del Curso: {{ curso?.nombre }}
+    </ion-list-header>
+    <ion-item *ngFor="let alumno of alumnos">
+      <ion-label>{{ alumno.nombre }}</ion-label>
+    </ion-item>
   </ion-list>
 </ion-content>

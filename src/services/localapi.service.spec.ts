@@ -1,13 +1,15 @@
 import { TestBed } from '@angular/core/testing';
-
-import { LocalapiService } from './localapi.service';
+import { LocalApiService } from './localapi.service';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 describe('LocalapiService', () => {
-  let service: LocalapiService;
+  let service: LocalApiService;
 
   beforeEach(() => {
-    TestBed.configureTestingModule({});
-    service = TestBed.inject(LocalapiService);
+    TestBed.configureTestingModule({
+      imports: [HttpClientTestingModule],
+    });
+    service = TestBed.inject(LocalApiService);
   });
 
   it('should be created', () => {

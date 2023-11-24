@@ -13,7 +13,7 @@ import { HttpClientModule } from '@angular/common/http';
     BrowserModule,
     IonicModule.forRoot(),
     AppRoutingModule,
-    HttpClientModule, // Agrega HttpClientModule para las solicitudes HTTP
+    HttpClientModule,
     IonicStorageModule.forRoot() // Configura Ionic Storage en el módulo principal
   ],
   providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],

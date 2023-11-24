@@ -1,13 +1,22 @@
-<ion-header [translucent]="true">
+<ion-header>
   <ion-toolbar>
-    <ion-title>homealumno</ion-title>
+    <ion-title>
+      Home Alumno
+    </ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">homealumno</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content class="ion-padding">
+  <ion-button expand="full" (click)="scanQRCode()">Escanear Código QR</ion-button>
+
+  <ion-card *ngIf="qrData">
+    <ion-card-header>
+      Código QR Decodificado
+    </ion-card-header>
+    <ion-card-content>
+      {{ qrData }}
+    </ion-card-content>
+  </ion-card>
+
+  <ion-button expand="full" (click)="sendEmail()" *ngIf="qrData">Enviar Correo</ion-button>
 </ion-content>
