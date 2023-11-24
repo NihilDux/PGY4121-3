@@ -6,6 +6,8 @@ import { IonicModule } from '@ionic/angular';
 
 import { HomealumnoPageRoutingModule } from './homealumno-routing.module';
 
+import { QrComponent } from '../qr/qr.component';
+
 import { HomealumnoPage } from './homealumno.page';
 
 @NgModule({
@@ -15,6 +17,6 @@ import { HomealumnoPage } from './homealumno.page';
     IonicModule,
     HomealumnoPageRoutingModule
   ],
-  declarations: [HomealumnoPage]
+  declarations: [HomealumnoPage, QrComponent]
 })
 export class HomealumnoPageModule {}

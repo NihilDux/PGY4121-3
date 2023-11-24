@@ -23,11 +23,13 @@ const routes: Routes = [
   },
   {
     path: 'homealumno',
-    loadChildren: () => import('./homealumno/homealumno.module').then( m => m.HomealumnoPageModule)
+    loadChildren: () => import('./homealumno/homealumno.module').then( m => m.HomealumnoPageModule),
+    canActivate: [AuthGuard],
   },
   {
     path: 'curso',
-    loadChildren: () => import('./curso/curso.module').then( m => m.CursoPageModule)
+    loadChildren: () => import('./curso/curso.module').then( m => m.CursoPageModule),
+    canActivate: [AuthGuard],
   },
   {
     path: 'page404',

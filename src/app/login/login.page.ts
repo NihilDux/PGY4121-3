@@ -79,10 +79,6 @@ restore(){
   this.router.navigate(['/restore']);
 }
 
-capacitor(){
-  this.router.navigate(['/homealumno']);
-}
-
 validateModel(model: any): string {
   if (model.username.length < 3 || model.username.length > 8) {
     return 'El usuario debe tener al menos 3 caracteres y un máximo de 8';

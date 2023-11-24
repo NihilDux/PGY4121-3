@@ -1,6 +1,6 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { AlertController, ToastController, AnimationController } from '@ionic/angular';
-import { Router, ActivatedRoute, NavigationExtras } from "@angular/router";
+import { Router, NavigationExtras } from "@angular/router";
 import { UserService } from 'src/services/user.service';
 import { LocalApiService } from 'src/services/localapi.service';
 import { Platform } from '@ionic/angular';
@@ -42,7 +42,6 @@ export class HomePage {
     await this.initializeStorage();
     const isAuthenticated = await this.userService.getIsAuthenticated();
     if (!isAuthenticated) {
-      // Redirigir al usuario a la página de inicio de sesión si no está autenticado
       this.router.navigate(['/login']);
     }
 

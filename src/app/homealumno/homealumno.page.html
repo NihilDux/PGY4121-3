@@ -1,22 +1,13 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>
-      Home Alumno
+    <ion-title *ngIf="dataUser"> 
+      <h1>Home Alumno</h1>
+      <h3 #titulo>Bienvenido: {{ dataUser.nombre }}</h3>
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content class="ion-padding">
-  <ion-button expand="full" (click)="scanQRCode()">Escanear Código QR</ion-button>
-
-  <ion-card *ngIf="qrData">
-    <ion-card-header>
-      Código QR Decodificado
-    </ion-card-header>
-    <ion-card-content>
-      {{ qrData }}
-    </ion-card-content>
-  </ion-card>
-
-  <ion-button expand="full" (click)="sendEmail()" *ngIf="qrData">Enviar Correo</ion-button>
+  <app-scanner class="ion-text-center"></app-scanner>
+  <ion-button expand="full" (click)="logout()">Salir</ion-button>
 </ion-content>
