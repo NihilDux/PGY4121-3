@@ -99,7 +99,9 @@ export class QrComponent implements AfterViewInit, OnDestroy {
   }
   
   ngOnDestroy() {
-    this.videoStream.getTracks().forEach((track) => track.stop())
+    if (this.videoStream && this.videoStream.getTracks) {
+      const tracks = this.videoStream.getTracks();
+    }
     this.videoElement = null!
 
     this.destroy$.next()

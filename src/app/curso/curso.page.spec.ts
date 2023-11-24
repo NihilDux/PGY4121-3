@@ -4,6 +4,7 @@ import { LocalApiService } from 'src/services/localapi.service';
 import { ActivatedRoute } from '@angular/router';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { of } from 'rxjs';
+import { IonicStorageModule } from '@ionic/storage-angular';
 class MockActivatedRoute {
   queryParams = of({ idProfesor: 'mockedIdProfesor', idCurso: 'mockedIdCurso' });
 }
@@ -19,7 +20,8 @@ describe('CursoPage', () => {
         LocalApiService,
         { provide: ActivatedRoute, useClass: MockActivatedRoute },
       ],
-      imports: [HttpClientTestingModule],
+      imports: [HttpClientTestingModule,
+                IonicStorageModule.forRoot() ],
     })
     .compileComponents();
   }));
