@@ -7,16 +7,15 @@ import { Platform } from '@ionic/angular';
   providedIn: 'root'
 })
 export class UserService {
-  private apiUrl = 'http://localhost:5000'; // Ruta de la API
+  private apiUrl = 'http://192.168.70.187:5000'; // Ruta de la API
 
   constructor(
     private http: HttpClient,
     private storage: Storage,
-    private platform: Platform // Agrega el Platform para verificar la plataforma actual
+    private platform: Platform
   ) {
     this.platform.ready().then(() => {
       this.storage.create().then(() => {
-        // La base de datos se ha creado, ahora puedes acceder a ella
       });
     });
   }
@@ -38,38 +37,30 @@ export class UserService {
       const response = await this.http.post<any>(`${this.apiUrl}/login`, data).toPromise();
 
       if (response.access_token) {
-        // Autenticación exitosa
-        // Almacena el token JWT en el almacenamiento local
         await this.storage.set('access_token', response.access_token);
 
         return true;
       } else {
-        // Autenticación fallida
         return false;
       }
     } catch (error) {
-      // Manejar errores de conexión con el servidor
       console.error('Error en la autenticación:', error);
       return false;
     }
   }
 
   async logout() {
-    // Cierre de sesión
-    // Elimina el token JWT del almacenamiento local
     await this.storage.remove('access_token');
     window.location.reload();
   }
 
   async getIsAuthenticated(): Promise<boolean> {
-    // Comprueba si el token JWT existe en el almacenamiento local
     const access_token = await this.storage.get('access_token');
     
     return access_token !== null;
   }
   
   async getCurrentUser(): Promise<any | null> {
-    // Decodifica el token JWT para obtener información del usuario
     const access_token = await this.storage.get('access_token');
     if (access_token) {
       const decodedUser = await this.decodeJWT(access_token);
@@ -84,7 +75,7 @@ export class UserService {
       const base64Url = token.split('.')[1];
       const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
       const jsonPayload = decodeURIComponent(atob(base64));
-      return JSON.parse(jsonPayload); // Devuelve los datos del usuario del token (ajusta esto según la estructura de tus tokens)
+      return JSON.parse(jsonPayload);
     } catch (error) {
       console.error('Error al decodificar el token JWT:', error);
       return null;

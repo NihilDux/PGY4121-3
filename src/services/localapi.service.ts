@@ -11,7 +11,7 @@ export class LocalApiService {
 
   httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' }) }
 
-  private apiUrl = 'http://localhost:5000';
+  private apiUrl = 'http://192.168.70.187:5000';
 
   constructor(private http: HttpClient) {}
 
@@ -42,26 +42,21 @@ export class LocalApiService {
   }
 
   async getProfesorIdPorUsuario(user: string) {
-    // Usuario a buscar
     const usuarioBuscado = user;
   
-    // Paso 1: Enviar el usuario al servidor Flask
     const data = { username: usuarioBuscado };
   
     try {
       const response = await this.http.post<any>('http://localhost:5000/buscar_profesor', data).toPromise();
   
       if (response.id) {
-        // ID del profesor encontrado
         const profesorId = response.id;
 
         return profesorId;
       } else {
-        // Profesor no encontrado
         console.log('Profesor no encontrado');
       }
     } catch (error) {
-      // Manejar los errores de la solicitud
       console.error('Error en la solicitud:', error);
     }
   }
@@ -76,9 +71,5 @@ export class LocalApiService {
       throw error;
     } 
   }
-  
-  
-  
-  
   
 }

@@ -31,29 +31,30 @@ export class CursoPage implements OnInit {
     });
   }
 
-QR() {
-  if (this.curso) {
-    const fechaActual = new Date().toLocaleString('es-ES', {
-      day: '2-digit',
-      month: '2-digit',
-      year: 'numeric',
-      hour: '2-digit',
-      minute: '2-digit',
-    });
-
-    const qrText = `${this.curso.codigo}-${this.curso.seccion}-${fechaActual}`;
-
-    // Crear el código QR
-    const typeNumber = 4; // Ajusta el nivel de corrección de errores según sea necesario
-    const errorCorrectionLevel = 'L'; // 'L', 'M', 'Q', 'H'
+  generateQRCode(text: string): string {
+    const typeNumber = 4;
+    const errorCorrectionLevel = 'L';
     const qr = QRCode(typeNumber, errorCorrectionLevel);
-    qr.addData(qrText);
+    qr.addData(text);
     qr.make();
-
-    // Obtener la cadena de datos URL directamente
-    this.qrData = qr.createDataURL(10, 0);
+    return qr.createDataURL(10, 0);
   }
-}
+  
+  QR() {
+    if (this.curso) {
+      const fechaActual = new Date().toLocaleString('es-ES', {
+        day: '2-digit',
+        month: '2-digit',
+        year: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit',
+      });
+  
+      const qrText = `${this.curso.codigo}-${this.curso.seccion}-${fechaActual}`;
+      this.qrData = this.generateQRCode(qrText);
+    }
+  }
+  
 
   ngOnInit() {
     this.localApiService.getCursosPorProfesor(this.profesorId).subscribe(

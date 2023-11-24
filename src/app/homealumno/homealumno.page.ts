@@ -9,7 +9,7 @@ import JSQR from 'jsqr';
 })
 export class HomealumnoPage {
   qrData: string = '';
-  cameraResult: Photo | undefined; // Definir cameraResult a nivel de clase
+  cameraResult: Photo | undefined;
 
   constructor() {}
 
@@ -19,7 +19,7 @@ export class HomealumnoPage {
       resultType: CameraResultType.Uri,
     });
   
-    if (cameraResult.webPath) {
+    if (this.cameraResult?.webPath) {
       this.decodeQRCode(cameraResult.webPath);
     } else {
       console.error('La propiedad webPath es indefinida.');
@@ -35,8 +35,6 @@ export class HomealumnoPage {
   
     try {
       const decodedData = await this.decodeDataUrl(webPath);
-  
-      // Obtén las dimensiones de la imagen
       const img = new Image();
       img.src = webPath;
       await img.decode();
