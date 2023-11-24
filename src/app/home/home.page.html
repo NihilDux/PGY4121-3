@@ -1,0 +1,45 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title *ngIf="dataUser"> 
+      <h1 #titulo (click)="animatedTitle()">Bienvenido: {{ dataUser.nombre }}</h1>
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <ion-card>
+      <ion-card-content>
+        <ion-list>
+          <ion-item *ngIf="user" >
+            <p>Usuario: {{ user.username }}</p>
+          </ion-item>
+        </ion-list>
+        <div *ngIf="dataUser">
+          <h2>Detalles del Usuario en Sesión</h2>
+          <p>Nombre: {{ dataUser.nombre }}</p>
+        </div>
+      </ion-card-content>
+    <br>
+    <ion-button expand="full" (click)="logout()">Salir</ion-button>
+    
+    <ion-card-content>
+      <ion-list>
+        <ion-button expand="full" (click)="listarCurso()">Listar cursos</ion-button>
+        <ion-item *ngFor="let curso of cursos">
+          <ion-label>
+            <h2>Nombre: {{ curso.nombre }}</h2>
+            <h3>ID: {{ curso.id }}</h3>
+            <h3>Código: {{ curso.codigo }}</h3>
+            <h3>Sección: {{ curso.seccion }}</h3>
+          </ion-label>
+          <ion-button fill="outline" slot="end" (click)="Curso(curso.id)">Ver Detalle</ion-button>
+        </ion-item>
+      </ion-list>
+   </ion-card-content>
+  </ion-card>
+</ion-content>
+<ion-footer>
+<ion-toolbar>
+  <ion-title class="ion-text-center">Developer: Gundyr</ion-title>
+</ion-toolbar>
+</ion-footer>
