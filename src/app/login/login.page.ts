@@ -41,44 +41,70 @@ export class LoginPage {
   }
   
 
-async login() {
-  try {
-    const validationMessage = this.validateModel(this.logindata);
-    const isAuthenticated = await this.userService.login(this.logindata.username, this.logindata.password);
+  async login() {
+    try {
+      const validationMessage = this.validateModel(this.logindata);
+      const isAuthenticated = await this.userService.login(this.logindata.username, this.logindata.password);
+  
+      // Mostrar toasts para mensajes de validación y autenticación
+      if (validationMessage === 'success'){
+        this.presentToast(`Validation Message: ${validationMessage}`);
 
-    if (validationMessage === 'success' && isAuthenticated) {
-      const userProfile = await this.userService.getUserProfile();
-      console.log(userProfile)
+      }else {
+        this.presentToast(`Validation Message: Se Chingó}`);
+      }
+      await new Promise(resolve => setTimeout(resolve, 5000))
+      if (isAuthenticated){
+        this.presentToast(`Is Authenticated: SI`);
+      }else{
+        this.presentToast(`Is Authenticated: CACA User: ${this.logindata.username}  PASS:${this.logindata.password}`)
+      }
+      await new Promise(resolve => setTimeout(resolve, 5000));
+      
+      if (validationMessage === 'success' && isAuthenticated) {
+        // Agregar un pequeño retraso antes de continuar con la lógica final
 
-      if (userProfile !== null) {
-        if (userProfile === 1) {
-          // Usuario con perfil 1 (docente)
-          this.presentToast('Bienvenido');
-          await this.playLoginAnimation();
-          this.router.navigate(['/home']);
-        } else if (userProfile === 2) {
-          // Usuario con perfil 2 (alumno)
-          this.presentToast('Bienvenido Alumno');
-          await this.playLoginAnimation();
-          this.router.navigate(['/homealumno']);
+  
+        const userProfile = await this.userService.getUserProfile();
+        console.log('User Profile:', userProfile);
+  
+        if (userProfile !== null) {
+          if (userProfile === 1) {
+            // Usuario con perfil 1 (docente)
+            this.presentToast('Bienvenido');
+            await this.playLoginAnimation();
+            this.router.navigate(['/home']);
+          } else if (userProfile === 2) {
+            // Usuario con perfil 2 (alumno)
+            this.presentToast('Bienvenido Alumno');
+            await this.playLoginAnimation();
+            this.router.navigate(['/homealumno']);
+          }
+        } else {
+          // No se pudo obtener el perfil del usuario
+          console.error('No se pudo obtener el perfil del usuario');
         }
       } else {
-        // No se pudo obtener el perfil del usuario
-        console.error('No se pudo obtener el perfil del usuario');
+        // Mostrar mensaje de error si las credenciales son incorrectas.
+        this.presentToast('Credenciales incorrectas');
       }
-    } else {
-      // Mostrar mensaje de error si las credenciales son incorrectas.
-      this.presentToast('Credenciales incorrectas');
+    } catch (error) {
+      // Manejar errores de autenticación
+      console.error('Error en la autenticación:', error);
+  
+      // Mostrar mensaje de error en caso de excepción
+      this.presentToast('Error en la autenticación');
     }
-  } catch (error) {
-    // Maneja los errores de la autenticación
-    console.error('Error en la autenticación:', error);
   }
-}
+  
   
 
 restore(){
   this.router.navigate(['/restore']);
+}
+
+capacitor(){
+  this.router.navigate(['/homealumno']);
 }
 
 validateModel(model: any): string {

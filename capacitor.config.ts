@@ -5,7 +5,7 @@ const config: CapacitorConfig = {
   appName: 'PGY4121-2',
   webDir: 'www',
   server: {
-    androidScheme: 'https'
+    androidScheme: 'http'
   }
 };
 

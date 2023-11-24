@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Storage } from '@ionic/storage';
 import { Platform } from '@ionic/angular';
 
@@ -7,6 +7,9 @@ import { Platform } from '@ionic/angular';
   providedIn: 'root'
 })
 export class UserService {
+
+  httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' }) }
+  
   private apiUrl = 'http://192.168.70.187:5000'; // Ruta de la API
 
   constructor(
@@ -34,15 +37,16 @@ export class UserService {
     const data = { user: username, password };
 
     try {
-      const response = await this.http.post<any>(`${this.apiUrl}/login`, data).toPromise();
+      const response = await this.http.post<any>(`${this.apiUrl}/login`, data, this.httpOptions).toPromise();
 
-      if (response.access_token) {
+      if (response.access_token !== null && response.access_token !== undefined) {
         await this.storage.set('access_token', response.access_token);
-
         return true;
       } else {
+        console.error('El token de acceso no se encontró en la respuesta:', response);
         return false;
       }
+      
     } catch (error) {
       console.error('Error en la autenticación:', error);
       return false;

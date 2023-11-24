@@ -16,7 +16,7 @@ export class LocalApiService {
   constructor(private http: HttpClient) {}
 
   getProfesores(): Observable<any[]> {
-    return this.http.get<any[]>(this.apiUrl+'/profesores');
+    return this.http.get<any[]>(this.apiUrl+'/profesores', this.httpOptions);
   }
   
   getIdProfesor(user: string): Observable<any> {
@@ -47,7 +47,7 @@ export class LocalApiService {
     const data = { username: usuarioBuscado };
   
     try {
-      const response = await this.http.post<any>('http://localhost:5000/buscar_profesor', data).toPromise();
+      const response = await this.http.post<any>(this.apiUrl+'/buscar_profesor', data).toPromise();
   
       if (response.id) {
         const profesorId = response.id;
@@ -64,7 +64,7 @@ export class LocalApiService {
   async getDataUser(user: string) {
     const data = { user };
     try {      
-      return await this.http.post<any>('http://localhost:5000/usuario', data).toPromise();
+      return await this.http.post<any>(this.apiUrl+'/usuario', data).toPromise();
       
     } catch (error) {
       console.error('Error en la solicitud para obtener el usuario:', error);

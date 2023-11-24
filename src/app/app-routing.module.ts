@@ -23,8 +23,7 @@ const routes: Routes = [
   },
   {
     path: 'homealumno',
-    loadChildren: () => import('./homealumno/homealumno.module').then( m => m.HomealumnoPageModule),
-    canActivate: [AuthGuard],
+    loadChildren: () => import('./homealumno/homealumno.module').then( m => m.HomealumnoPageModule)
   },
   {
     path: 'curso',
