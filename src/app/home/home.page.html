@@ -26,9 +26,7 @@
     
     <ion-card-content>
       <ion-list>
-        <ion-button expand="full" (click)="logout()">Salir</ion-button>
-        <br>
-        <ion-button expand="full" (click)="listarCurso()">Listar cursos</ion-button>
+        <ion-button expand="full" color="tertiary" (click)="listarCurso()">Listar cursos</ion-button>
         <ion-item *ngFor="let curso of cursos">
           <ion-label>
             <h2>Nombre: {{ curso.nombre }}</h2>
@@ -39,11 +37,12 @@
           <ion-button fill="outline" slot="end" (click)="Curso(curso.id)">Ver Detalle</ion-button>
         </ion-item>
       </ion-list>
+      <ion-button expand="full" color="danger" (click)="logout()">Salir</ion-button>
    </ion-card-content>
   </ion-card>
 </ion-content>
-<ion-footer>
-<ion-toolbar>
-  <ion-title class="ion-text-center">Developer: Gundyr</ion-title>
-</ion-toolbar>
+<ion-footer [translucent]="true">
+  <ion-toolbar>
+    <ion-title class="ion-text-center">Developer: Gundyr</ion-title>
+  </ion-toolbar>
 </ion-footer>

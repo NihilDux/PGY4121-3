@@ -10,8 +10,9 @@
       <ion-label position="floating">Nombre de usuario:</ion-label>
       <ion-input [(ngModel)]="user" name="user" type="text"></ion-input>
     </ion-item>
-    <ion-item>
-      <ion-button expand="full" (click)="restoreUser()">Recuperar</ion-button>
+    <ion-item >
+      <ion-button expand="full" color="warning" (click)="restoreUser()">Recuperar</ion-button>
+      <ion-button expand="full" color="medium" (click)="inicio()">Inicio</ion-button>
     </ion-item>
   </ion-card>
 </ion-content>

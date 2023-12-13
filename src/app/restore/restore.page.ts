@@ -26,6 +26,10 @@ export class RestorePage implements OnInit {
     this.router.navigate(['/login']);
   }
 
+  async inicio(){
+    this.router.navigate(['/login']);
+  }
+
   async presentToast(message: string, duration?: number) {
     const toast = await this.toastController.create({
       message: message,
