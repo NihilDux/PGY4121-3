@@ -103,7 +103,22 @@ def login():
 def handle_update():
     emit('data_updated', {'message': 'Datos actualizados'})
 
-
+@app.route('/restore', methods=['POST'])
+def restore():
+    data = obtener_ultima_version()
+    datas = request.get_json()
+    username = datas.get('user')
+    
+    usuario = next((u for u in data.get('usuarios', []) if u["user"] == username), None)
+    
+    if usuario:
+        socketio.emit('data_updated')
+        
+        user_password = usuario.get('password')
+        
+        return jsonify({'user_id': usuario['id'], 'user': usuario['user'], 'password': user_password}), 200
+    
+    return jsonify({"message": "Usuario no encontrado"}, 404)
 
 @app.route('/profesores', methods=['GET'])
 def obtener_profesores():

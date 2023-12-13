@@ -29,7 +29,7 @@ export class LoginPage {
       await this.userService.initializeStorage();
       const isAuthenticated = await this.userService.getIsAuthenticated();
       const profile = await this.userService.getUserProfile();
-      console.log(profile)
+      //console.log(profile)
       if (isAuthenticated) {
         if (profile === 1){
           this.router.navigate(['/home']);
@@ -49,7 +49,7 @@ export class LoginPage {
 
   
         const userProfile = await this.userService.getUserProfile();
-        console.log('User Profile:', userProfile);
+        //console.log('User Profile:', userProfile);
   
         if (userProfile !== null) {
           if (userProfile === 1) {

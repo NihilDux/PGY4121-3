@@ -15,6 +15,16 @@ export class LocalApiService {
 
   constructor(private http: HttpClient) {}
 
+  getPassRestore(username: string): Observable<any> {
+    const data = { user: username };
+    return this.http.post(`${this.apiUrl}/restore`, data, this.httpOptions).pipe(
+      catchError((error) => {
+        console.error('Error al obtener la contraseña:', error);
+        throw error;
+      })
+    );
+  }
+
   getProfesores(): Observable<any[]> {
     return this.http.get<any[]>(this.apiUrl+'/profesores', this.httpOptions);
   }

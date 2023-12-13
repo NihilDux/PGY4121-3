@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { UserService } from 'src/services/user.service';
+import { LocalApiService } from 'src/services/localapi.service';
 import { ToastController } from '@ionic/angular';
 
 @Component({
@@ -10,20 +10,33 @@ import { ToastController } from '@ionic/angular';
 })
 export class RestorePage implements OnInit {
   user: string = '';
+  restoredata: any = {
+    username: ''
+  }
 
   constructor(
     private router: Router,
-    private userService: UserService,
+    private localApiService: LocalApiService,
     public toastController: ToastController,
   ) { }
 
   ngOnInit() {
   }
 
-  async restoreUser(){
-    await this.presentToast('PONDRE ACA LA PASS O ALGUNA COSA JE');
-    this.userService.logout();
-    this.router.navigate(['/login']);
+  restoreUser() {
+    if (!this.restoredata.username) {
+      console.error('Ingrese un nombre de usuario.');
+      return;
+    }
+    this.localApiService.getPassRestore(this.restoredata.username).subscribe(
+      (response) => {
+        this.presentToast('Contraseña del usuario: '+ response.password);
+        this.router.navigate(['/login']);
+      },
+      (error) => {
+        console.error('Error al obtener la contraseña:', error);
+      }
+    );
   }
 
   async inicio(){
